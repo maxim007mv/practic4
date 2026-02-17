@@ -1,0 +1,390 @@
+// ==================== Переменные ====================
+$bg: #0b0f19;
+$panel: rgba(255, 255, 255, 0.03);
+$border: rgba(255, 255, 255, 0.10);
+$text: #e7eaf3;
+$primary: rgba(99, 102, 241, 0.55);
+$primaryBg: rgba(99, 102, 241, 0.18);
+$danger: rgba(239, 68, 68, 0.45);
+$dangerBg: rgba(239, 68, 68, 0.12);
+$success: rgba(34, 197, 94, 0.7);
+$warn: rgba(250, 204, 21, 0.7);
+
+// ==================== Миксины ====================
+@mixin card($radius: 14px) {
+  border-radius: $radius;
+  border: 1px solid $border;
+  background: $panel;
+}
+
+@mixin container($w: 1100px) {
+  max-width: $w;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// ==================== Общая страница ====================
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $bg;
+  color: $text;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+// ==================== Header ====================
+.header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+
+  &__inner {
+    @include container();
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__right {
+    opacity: 0.75;
+    font-size: 13px;
+  }
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+}
+
+// ==================== Main ====================
+.main {
+  flex: 1;
+  display: flex;
+}
+
+.container {
+  @include container();
+  padding: 16px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  .title {
+    margin: 0;
+    font-size: 22px;
+  }
+}
+
+// ==================== Фильтры ====================
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.select-input {
+  min-width: 160px;
+  cursor: pointer;
+}
+
+.stats {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 14px;
+}
+
+// ==================== Кнопки ====================
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &--primary {
+    background: $primaryBg;
+    border: 1px solid $primary;
+
+    &:hover {
+      background: rgba(99, 102, 241, 0.28);
+    }
+  }
+
+  &--danger {
+    background: $dangerBg;
+    border: 1px solid $danger;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.22);
+    }
+  }
+}
+
+// ==================== Сетка карточек ====================
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.empty {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+  opacity: 0.85;
+  text-align: center;
+}
+
+// ==================== Карточка товара ====================
+.card {
+  @include card(14px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &__image-wrap {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(99, 102, 241, 0.35);
+    backdrop-filter: blur(6px);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  &__body {
+    padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.75;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  &__price {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(129, 140, 248, 1);
+  }
+
+  &__rating {
+    font-size: 13px;
+    color: rgba(250, 204, 21, 0.9);
+  }
+
+  &__stock {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 14px 14px;
+  }
+}
+
+.in-stock {
+  color: $success;
+  font-weight: 600;
+}
+
+.out-of-stock {
+  color: $danger;
+  font-weight: 600;
+}
+
+// ==================== Footer ====================
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+
+  &__inner {
+    @include container();
+    padding: 14px 16px;
+    opacity: 0.7;
+    font-size: 13px;
+  }
+}
+
+// ==================== Модальное окно ====================
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f1526;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+
+  &__header {
+    padding: 14px 16px;
+    border-bottom: 1px solid $border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+  }
+}
+
+.iconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+  }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+}
+
+// ==================== Адаптив ====================
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
